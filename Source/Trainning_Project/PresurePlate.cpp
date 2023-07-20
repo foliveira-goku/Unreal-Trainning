@@ -16,16 +16,6 @@ void APresurePlate::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void APresurePlate::OnActivate()
-{
-	UE_LOG(LogTemp, Warning, TEXT("APresurePlate::OnActivate"));
-}
-
-void APresurePlate::OnDeactivate()
-{
-	UE_LOG(LogTemp, Warning, TEXT("APresurePlate::OnDeactivate"));
-}
-
 void APresurePlate::NotifyActorBeginOverlap(AActor* otherActor)
 {
 	OnActivate();
@@ -36,7 +26,16 @@ void APresurePlate::NotifyActorEndOverlap(AActor* otherActor)
 	OnDeactivate();
 }
 
+void APresurePlate::OnActivate()
+{
+	UE_LOG(LogTemp, Warning, TEXT("APresurePlate::OnActivate"));
+	
+	doorActor->Open();
+}
 
+void APresurePlate::OnDeactivate()
+{
+	UE_LOG(LogTemp, Warning, TEXT("APresurePlate::OnDeactivate"));
 
-
-
+	GetWorldTimerManager().SetTimer(timerHandle, doorActor, &ADoor::Close, closeDelay);
+}

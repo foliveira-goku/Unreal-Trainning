@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Door.h"
 #include "PresurePlate.generated.h"
 
 UCLASS()
@@ -10,10 +11,12 @@ class TRAINNING_PROJECT_API APresurePlate : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	UPrimitiveComponent* collider{};
+	ADoor* doorActor;
 
 	UPROPERTY(EditAnywhere)
 	float closeDelay{};
+
+	FTimerHandle timerHandle{};
 
 public:
 	APresurePlate();
