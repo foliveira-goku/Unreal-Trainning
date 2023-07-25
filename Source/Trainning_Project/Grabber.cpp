@@ -44,6 +44,7 @@ const bool UGrabber::TryGetGrabbableInReach(FHitResult& HitResult)
 {
 	FVector start = GetComponentLocation();
 	FVector end = start + GetForwardVector() * maxGrabDistance;
+	DrawDebugLine(world, start, end, FColor::Red);
 	DrawDebugSphere(world, end, 10, 10, FColor::Blue, false, 5);
 	FCollisionShape sphereShape = FCollisionShape::MakeSphere(grabRadius);
 
@@ -63,6 +64,7 @@ void UGrabber::Release()
 	if (physicsHandle == nullptr || physicsHandle->GetGrabbedComponent() == nullptr)
 		return;
 
+	physicsHandle->GetGrabbedComponent()->PutRigidBodyToSleep();
 	UE_LOG(LogTemp, Warning, TEXT("UGrabber::Released!"));
 	physicsHandle->ReleaseComponent();
 }

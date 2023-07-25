@@ -1,30 +1,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "Openable.h"
-#include "Door.generated.h"
+#include "Portal.generated.h"
 
 UCLASS()
-class TRAINNING_PROJECT_API ADoor : public AActor, public IOpenable
+class TRAINNING_PROJECT_API APortal : public AActor, public IOpenable
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* leftDoor;
-
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* rightDoor;
-
 	UPROPERTY(EditAnywhere)
-	FRotator openedDoorRoration{};
+	UStaticMeshComponent* portalMesh;
 	
 public:
-	ADoor();
+	APortal();
 	virtual void Tick(float DeltaTime) override;
+	
+	UFUNCTION()
 	virtual void Open() override;
+	UFUNCTION()
 	virtual void Close() override;
 
 protected:
 	virtual void BeginPlay() override;
-
 };

@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Door.h"
+#include "Openable.h"
 #include "PresurePlate.generated.h"
 
 UCLASS()
@@ -10,8 +11,10 @@ class TRAINNING_PROJECT_API APresurePlate : public AActor
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
-	ADoor* doorActor;
+	UPROPERTY(EditAnywhere, meta = (MustImplement = "Openable"))
+	AActor* openableActor;
+
+	TScriptInterface<IOpenable> openable;
 
 	UPROPERTY(EditAnywhere)
 	float closeDelay{};
@@ -27,8 +30,10 @@ public:
 	UFUNCTION()
 	void OnDeactivate();
 protected:
-
 	virtual void NotifyActorBeginOverlap(AActor* otherActor) override;
 	virtual void NotifyActorEndOverlap(AActor* otherActor) override;
 	virtual void BeginPlay() override;
+
+private:
+	void OnDeactivateTimerEnd();
 };
