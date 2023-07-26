@@ -22,8 +22,12 @@ class TRAINNING_PROJECT_API UGrabber : public USceneComponent
 	UPROPERTY(EditAnywhere)
 	float holdHeight = 200.f;
 
+	UPROPERTY()
 	UPhysicsHandleComponent* physicsHandle{};
+	UPROPERTY()
 	UWorld* world{};
+	UPROPERTY()
+	bool isGrabbing{};
 
 public:
 	UGrabber();
@@ -32,6 +36,9 @@ public:
 	void Grab();
 	UFUNCTION(BlueprintCallable)
 	void Release();
+
+	UFUNCTION(BlueprintCallable)
+	bool IsGrabbing();
 
 protected:
 	virtual void BeginPlay() override;

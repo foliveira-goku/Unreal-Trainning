@@ -27,7 +27,11 @@ void APresurePlate::NotifyActorBeginOverlap(AActor* otherActor)
 
 void APresurePlate::NotifyActorEndOverlap(AActor* otherActor)
 {
-	OnDeactivate();
+	TArray<AActor*> actors{};
+	GetOverlappingActors(actors);
+	
+	if(actors.Num() <= 0)
+		OnDeactivate();
 }
 
 void APresurePlate::OnActivate()

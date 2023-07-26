@@ -35,7 +35,10 @@ void UGrabber::Grab()
 	bool hasHit = TryGetGrabbableInReach(hitResult);
 
 	if (hasHit)
+	{
 		GrabActor(hitResult.GetComponent(), hitResult.ImpactPoint);
+		isGrabbing = true;
+	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("No Actor hit!"));
 }
@@ -64,8 +67,9 @@ void UGrabber::Release()
 	if (physicsHandle == nullptr || physicsHandle->GetGrabbedComponent() == nullptr)
 		return;
 
-	physicsHandle->GetGrabbedComponent()->PutRigidBodyToSleep();
 	UE_LOG(LogTemp, Warning, TEXT("UGrabber::Released!"));
 	physicsHandle->ReleaseComponent();
+	isGrabbing = false;
 }
 
+bool UGrabber::IsGrabbing(){return isGrabbing;}
