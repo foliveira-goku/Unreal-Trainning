@@ -1,15 +1,21 @@
 
 #include "MovingPlatform.h"
+#include "Components/AudioComponent.h"
 
 AMovingPlatform::AMovingPlatform()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
+	audioComponent->SetupAttachment(RootComponent);
 }
 
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 	startPosition = GetActorLocation();
+	audioComponent->SetPitchMultiplier(1/moveSpeed.Size());
+	audioComponent->Play();
 }
 
 void AMovingPlatform::Tick(float DeltaTime)
@@ -26,6 +32,11 @@ void AMovingPlatform::Move(const float& DeltaTime)
 	{
 		CorrectOvershootPosition();
 		moveSpeed = -moveSpeed;
+		if (audioComponent->Sound)
+		{
+			audioComponent->Stop();
+			audioComponent->Play(0.f);
+		}
 	}
 	else
 	{

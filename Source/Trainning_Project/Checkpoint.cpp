@@ -4,6 +4,7 @@
 #include "Particles/ParticleSystemComponent.h"
 //#include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "Components/AudioComponent.h"
 
 ACheckpoint::ACheckpoint()
 {
@@ -17,6 +18,9 @@ ACheckpoint::ACheckpoint()
 	
 	meshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	meshComponent->SetupAttachment(RootComponent);
+
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio"));
+	audioComponent->SetupAttachment(RootComponent);
 }
 
 void ACheckpoint::BeginPlay()
@@ -35,5 +39,7 @@ void ACheckpoint::OnCheckpointReached()
 	particleSystem->Activate();
 	triggerComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	meshComponent->SetMaterial(0, activatedMaterial);
+	if (audioComponent->Sound)
+		audioComponent->Play();
 }
 

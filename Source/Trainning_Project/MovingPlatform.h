@@ -13,6 +13,9 @@ class TRAINNING_PROJECT_API AMovingPlatform : public AActor
 	UPROPERTY(EditAnywhere)	float moveThreshold;
 	UPROPERTY(EditAnywhere)	FRotator rotateSpeed;
 
+	UPROPERTY(VisibleAnywhere)
+	class UAudioComponent* audioComponent;
+
 	FVector startPosition;
 	
 public:

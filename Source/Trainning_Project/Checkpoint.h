@@ -6,6 +6,7 @@
 
 class UCapsuleComponent;
 class UNiagaraComponent;
+class UAudioComponent;
 
 UCLASS()
 class TRAINNING_PROJECT_API ACheckpoint : public AActor
@@ -20,6 +21,9 @@ class TRAINNING_PROJECT_API ACheckpoint : public AActor
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* meshComponent;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UAudioComponent* audioComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Visual")
 	UMaterialInstance* activatedMaterial;
