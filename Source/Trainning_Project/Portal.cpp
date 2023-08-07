@@ -1,5 +1,6 @@
 
 #include "Portal.h"
+#include "Kismet/GameplayStatics.h"
 
 APortal::APortal()
 {
@@ -22,14 +23,13 @@ void APortal::Tick(float DeltaTime)
 
 void APortal::Open()
 {
-	UE_LOG(LogTemp, Warning, TEXT("The portal opened!"));
 	portalMesh->SetVisibility(false);
 	portalMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void APortal::Close()
 {
-	UE_LOG(LogTemp, Warning, TEXT("The portal closed!"));
+	UGameplayStatics::PlaySoundAtLocation(this, closeSound, GetActorLocation());
 	portalMesh->SetVisibility(true);
 	portalMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 }

@@ -13,6 +13,9 @@ class TRAINNING_PROJECT_API APortal : public AActor, public IOpenable
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* portalMesh;
 	
+	UPROPERTY(EditAnywhere)
+	class USoundBase* closeSound;
+
 public:
 	APortal();
 	virtual void Tick(float DeltaTime) override;
