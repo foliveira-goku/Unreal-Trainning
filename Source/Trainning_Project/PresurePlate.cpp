@@ -1,9 +1,13 @@
 #include "PresurePlate.h"
 #include "Logging/StructuredLog.h"
+#include "Components/AudioComponent.h"
 
 APresurePlate::APresurePlate()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio"));
+	audioComponent->SetupAttachment(RootComponent);
 }
 
 void APresurePlate::BeginPlay()
@@ -22,11 +26,14 @@ void APresurePlate::Tick(float DeltaTime)
 
 void APresurePlate::NotifyActorBeginOverlap(AActor* otherActor)
 {
+	Super::NotifyActorBeginOverlap(otherActor);
 	OnActivate();
 }
 
 void APresurePlate::NotifyActorEndOverlap(AActor* otherActor)
 {
+	Super::NotifyActorEndOverlap(otherActor);
+
 	TArray<AActor*> actors{};
 	GetOverlappingActors(actors);
 	
@@ -37,6 +44,9 @@ void APresurePlate::NotifyActorEndOverlap(AActor* otherActor)
 void APresurePlate::OnActivate()
 {
 	UE_LOG(LogTemp, Warning, TEXT("APresurePlate::OnActivate"));
+
+	if (audioComponent->Sound)
+		audioComponent->Play();
 
 	openable->Open();
 }

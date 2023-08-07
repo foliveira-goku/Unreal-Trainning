@@ -19,6 +19,9 @@ class TRAINNING_PROJECT_API APresurePlate : public AActor
 	UPROPERTY(EditAnywhere)
 	float closeDelay{};
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UAudioComponent* audioComponent{};
+
 	FTimerHandle timerHandle{};
 
 public:

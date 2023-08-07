@@ -16,7 +16,10 @@ class TRAINNING_PROJECT_API AMovingPlatform : public AActor
 	UPROPERTY(VisibleAnywhere)
 	class UAudioComponent* audioComponent;
 
+	UPROPERTY()
 	FVector startPosition;
+	UPROPERTY()
+	bool canMove = false;
 	
 public:
 	AMovingPlatform();
@@ -31,4 +34,6 @@ private:
 	void Rotate(const float& DeltaTime);
 	bool ShouldPlatformTurn() const;
 	float GetDistanceMoved() const;
+	UFUNCTION()
+	void StartMoving();
 };
