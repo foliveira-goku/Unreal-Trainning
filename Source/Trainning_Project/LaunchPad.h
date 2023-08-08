@@ -14,6 +14,9 @@ class TRAINNING_PROJECT_API ALaunchPad : public AActor
 	UPROPERTY(EditAnywhere)
 	FVector impulseForce;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UAudioComponent* audioComponent{};
+
 public:
 	ALaunchPad();
 	virtual void Tick(float DeltaTime) override;
